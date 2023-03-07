@@ -4,12 +4,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { FontAwesome5, AntDesign } from '@expo/vector-icons';
 
-import WebtoonScreen from '@/screens/Webtoon';
 import MyScreen from '@/screens/My';
+import WebtoonScreen from '@/screens/Webtoon';
 
 const Tab = createBottomTabNavigator();
 
-export default function BottomTabNavigator() {
+export default function MainTabNavigator() {
   return (
     <Tab.Navigator>
       <Tab.Screen
@@ -42,7 +42,7 @@ export default function BottomTabNavigator() {
 function Cookie() {
   return (
     <View>
-      <Pressable>
+      <Pressable onPress={() => alert('press cookie')}>
         <FontAwesome5 name="cookie-bite" size={24} color="black" />
       </Pressable>
     </View>
@@ -52,7 +52,7 @@ function Cookie() {
 function Search() {
   return (
     <View>
-      <Pressable>
+      <Pressable onPress={() => alert('press search')}>
         <AntDesign name="search1" size={24} color="black" />
       </Pressable>
     </View>
