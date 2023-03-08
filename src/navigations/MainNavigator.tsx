@@ -4,12 +4,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { FontAwesome5, AntDesign } from '@expo/vector-icons';
 
-import Cookie from '@/components/Icon/Cookie';
 import Search from '@/components/Icon/Search';
 
 import MyScreen from '@/screens/My';
 import WebtoonScreen from '@/screens/Webtoon';
-
 import { scale } from '@/styles/dimensions';
 
 const Tab = createBottomTabNavigator();
@@ -21,11 +19,7 @@ export default function MainTabNavigator() {
         name="웹툰"
         component={WebtoonScreen}
         options={{
-          headerTitleAlign: 'center',
-          headerTransparent: true,
-          headerTintColor: 'transparent',
-          headerLeft: () => <Cookie style={styles.search} onPressHandler={() => alert('press search')} />,
-          headerRight: () => <Search style={styles.search} onPressHandler={() => alert('press search')} />,
+          headerShown: false,
           tabBarIcon: ({ focused }) => (
             <FontAwesome5 name={focused ? 'calendar-day' : 'calendar'} size={24} color="black" />
           ),

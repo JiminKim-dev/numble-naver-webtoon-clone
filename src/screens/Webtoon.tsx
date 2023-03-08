@@ -1,9 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
-export default function WebtoonScreen() {
+import Header from '@/components/Header';
+
+export default function HomeScreen() {
   return (
     <View style={styles.container}>
-      <Text>Webtoon</Text>
+      <Header />
     </View>
   );
 }
@@ -11,8 +13,6 @@ export default function WebtoonScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffcdd2',
-    alignItems: 'center',
-    justifyContent: 'center',
+    position: 'relative',
   },
 });
