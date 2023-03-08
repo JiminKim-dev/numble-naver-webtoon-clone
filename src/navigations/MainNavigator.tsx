@@ -1,11 +1,16 @@
 /* eslint-disable react/no-unstable-nested-components */
-import { Pressable, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { FontAwesome5, AntDesign } from '@expo/vector-icons';
 
+import Cookie from '@/components/Icon/Cookie';
+import Search from '@/components/Icon/Search';
+
 import MyScreen from '@/screens/My';
 import WebtoonScreen from '@/screens/Webtoon';
+
+import { scale } from '@/styles/dimensions';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,8 +24,8 @@ export default function MainTabNavigator() {
           headerTitleAlign: 'center',
           headerTransparent: true,
           headerTintColor: 'transparent',
-          headerLeft: Cookie,
-          headerRight: Search,
+          headerLeft: () => <Cookie style={styles.search} onPressHandler={() => alert('press search')} />,
+          headerRight: () => <Search style={styles.search} onPressHandler={() => alert('press search')} />,
           tabBarIcon: ({ focused }) => (
             <FontAwesome5 name={focused ? 'calendar-day' : 'calendar'} size={24} color="black" />
           ),
@@ -31,7 +36,7 @@ export default function MainTabNavigator() {
         component={MyScreen}
         options={{
           headerTitleAlign: 'left',
-          headerRight: Search,
+          headerRight: () => <Search style={styles.search} onPressHandler={() => alert('press search')} />,
           tabBarIcon: ({ focused }) => <AntDesign name={focused ? 'smile-circle' : 'smileo'} size={24} color="black" />,
         }}
       />
@@ -39,22 +44,6 @@ export default function MainTabNavigator() {
   );
 }
 
-function Cookie() {
-  return (
-    <View>
-      <Pressable onPress={() => alert('press cookie')}>
-        <FontAwesome5 name="cookie-bite" size={24} color="black" />
-      </Pressable>
-    </View>
-  );
-}
-
-function Search() {
-  return (
-    <View>
-      <Pressable onPress={() => alert('press search')}>
-        <AntDesign name="search1" size={24} color="black" />
-      </Pressable>
-    </View>
-  );
-}
+const styles = StyleSheet.create({
+  search: { paddingRight: scale(12) },
+});
