@@ -14,15 +14,16 @@ const Tab = createBottomTabNavigator<RootStackParamList>();
 
 export default function MainTabNavigator() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator initialRouteName="HomeScreen">
       <Tab.Screen
         name="HomeScreen"
         component={WebtoonNavigator}
         options={{
           title: '웹툰',
           headerShown: false,
+          tabBarActiveTintColor: 'green',
           tabBarIcon: ({ focused }) => (
-            <FontAwesome5 name={focused ? 'calendar-day' : 'calendar'} size={24} color="black" />
+            <FontAwesome5 name={focused ? 'calendar-day' : 'calendar'} size={24} color={focused ? 'green' : 'black'} />
           ),
         }}
       />
@@ -33,7 +34,10 @@ export default function MainTabNavigator() {
           title: 'My',
           headerTitleAlign: 'left',
           headerRight: () => <Search style={styles.search} onPressHandler={() => alert('press search')} />,
-          tabBarIcon: ({ focused }) => <AntDesign name={focused ? 'smile-circle' : 'smileo'} size={24} color="black" />,
+          tabBarActiveTintColor: 'green',
+          tabBarIcon: ({ focused }) => (
+            <AntDesign name={focused ? 'smile-circle' : 'smileo'} size={24} color={focused ? 'green' : 'black'} />
+          ),
         }}
       />
     </Tab.Navigator>
