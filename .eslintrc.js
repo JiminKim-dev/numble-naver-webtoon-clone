@@ -33,7 +33,11 @@ module.exports = {
       },
     ],
     'import/extensions': 'off',
-    'no-use-before-define': 'off', // styleSheet가 컴포넌트 보다 아래 있기때문에 off
+    'no-use-before-define': 'off',
+    'no-empty-function': 'off',
+    '@typescript-eslint/no-empty-function': 'off',
+    'no-unused-vars': ['error', { vars: 'all', args: 'after-used', ignoreRestSiblings: false }],
+    'react/function-component-definition': ['off', { namedComponents: ['arrow-function', 'function-declaration'] }],
   },
   settings: {
     'import/resolver': {
