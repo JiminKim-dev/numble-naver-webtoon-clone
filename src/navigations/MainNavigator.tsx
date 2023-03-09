@@ -1,24 +1,25 @@
 /* eslint-disable react/no-unstable-nested-components */
 import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
 import { FontAwesome5, AntDesign } from '@expo/vector-icons';
 
-import Search from '@/components/Icon/Search';
-
+import { RootStackParamList } from '@/navigations/types';
+import WebtoonNavigator from '@/navigations/WebtoonNavigator';
 import MyScreen from '@/screens/My';
-import WebtoonScreen from '@/screens/Webtoon';
+
+import Search from '@/components/Icon/Search';
 import { scale } from '@/styles/dimensions';
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<RootStackParamList>();
 
 export default function MainTabNavigator() {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name="웹툰"
-        component={WebtoonScreen}
+        name="HomeScreen"
+        component={WebtoonNavigator}
         options={{
+          title: '웹툰',
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <FontAwesome5 name={focused ? 'calendar-day' : 'calendar'} size={24} color="black" />
@@ -26,9 +27,10 @@ export default function MainTabNavigator() {
         }}
       />
       <Tab.Screen
-        name="My"
+        name="MyScreen"
         component={MyScreen}
         options={{
+          title: 'My',
           headerTitleAlign: 'left',
           headerRight: () => <Search style={styles.search} onPressHandler={() => alert('press search')} />,
           tabBarIcon: ({ focused }) => <AntDesign name={focused ? 'smile-circle' : 'smileo'} size={24} color="black" />,
