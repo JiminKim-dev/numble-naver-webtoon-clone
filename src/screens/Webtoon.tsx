@@ -1,12 +1,14 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
 
 import Header from '@/components/Header/WebtoonHeader';
 import MainBanner from '@/components/Banner/MainBanner';
 
 import { scale, WIDTHS } from '@/styles/dimensions';
+import { useNavigation } from '@react-navigation/native';
+import { DetailScreenProps } from '@/navigations/types';
 
 interface RouteType {
   id: number;
@@ -31,6 +33,8 @@ export default function HomeScreen() {
   const [index, setIndex] = useState(0);
   const [routes] = useState(route);
 
+  const navigation = useNavigation<DetailScreenProps['navigation']>();
+
   return (
     <View style={styles.container}>
       <Header />
@@ -49,9 +53,12 @@ export default function HomeScreen() {
         )}
         navigationState={{ index, routes }}
         renderScene={(props) => (
-          <View style={styles.item}>
+          <Pressable
+            style={styles.item}
+            onPress={() => navigation.navigate('DetailScreen', { id: 1, title: '웹툰1', from: 'WebtoonScreen' })}
+          >
             <Text>{props.route.title} 웹툰</Text>
-          </View>
+          </Pressable>
         )} // 추후 다른 컴포넌트로 교체
         onIndexChange={setIndex}
         initialLayout={{ width: WIDTHS.WINDOW }}

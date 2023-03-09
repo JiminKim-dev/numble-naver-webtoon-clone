@@ -5,6 +5,7 @@ export type WebtoonStackParamList = {
   DetailScreen: {
     id: number;
     title: string;
+    from: 'WebtoonScreen' | 'MyScreen';
   };
 };
 
@@ -13,4 +14,5 @@ export type RootStackParamList = {
   MyScreen: undefined;
 };
 
+export type MyScreenProps = NativeStackScreenProps<RootStackParamList, 'MyScreen'>;
 export type DetailScreenProps = NativeStackScreenProps<WebtoonStackParamList, 'DetailScreen'>;

@@ -11,7 +11,7 @@ export default function WebtoonNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="WebtoonScreen" component={WebtoonScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="DetailScreen" component={DetailScreen} />
+      <Stack.Screen name="DetailScreen" component={DetailScreen} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 }
