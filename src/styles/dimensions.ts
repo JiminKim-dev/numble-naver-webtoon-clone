@@ -15,7 +15,7 @@ const moderateScale = (size: number, factor = 0.5) => size + (scale(size) - size
 
 const HEIGHTS = {
   WINDOW: WINDOW_HEIGHT,
-  HEADER: verticalScale(100),
+  HEADER: verticalScale(80),
   MAIN_BANNER: verticalScale(240),
   BOTTOM_BANNER: verticalScale(60),
 };
