@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
 
-import Header from '@/components/Header';
+import Header from '@/components/Header/WebtoonHeader';
 import MainBanner from '@/components/Banner/MainBanner';
 
 import { scale, WIDTHS } from '@/styles/dimensions';
