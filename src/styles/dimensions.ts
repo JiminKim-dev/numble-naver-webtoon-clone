@@ -24,4 +24,19 @@ const WIDTHS = {
   WINDOW: WINDOW_WIDTH,
 };
 
-export { HEIGHTS, WIDTHS, scale, verticalScale, moderateScale };
+const CARD_SIZE = {
+  WIDTH: {
+    tiny: scale(90),
+    small: scale(70),
+    medium: scale(100),
+    large: scale(120),
+  },
+  HEIGHTS: {
+    tiny: scale(70),
+    small: scale(100),
+    medium: scale(140),
+    large: scale(160),
+  },
+};
+
+export { HEIGHTS, WIDTHS, scale, verticalScale, moderateScale, CARD_SIZE };
