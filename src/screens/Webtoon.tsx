@@ -1,10 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useRef, useState } from 'react';
-import { View, StyleSheet, Animated, LayoutRectangle, LayoutChangeEvent } from 'react-native';
+import { View, StyleSheet, Animated, LayoutRectangle, LayoutChangeEvent, Text } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
 
 import Header from '@/components/Header/WebtoonHeader';
 import MainBanner from '@/components/Banner/MainBanner';
+import WebtoonList from '@/components/WebtoonList';
 
 import { HEIGHTS, WIDTHS } from '@/styles/dimensions';
 
@@ -48,9 +49,15 @@ export default function HomeScreen() {
     extrapolate: 'clamp',
   });
 
+  const footerTranslateY = scrollY.interpolate({
+    inputRange: [0, HEIGHTS.BOTTOM_BANNER / 10],
+    outputRange: [HEIGHTS.BOTTOM_BANNER, 0],
+    extrapolate: 'clamp',
+  });
+
   return (
     <View style={styles.container}>
-      <Header />
+      <Header scrollY={scrollY} />
 
       <Animated.View style={[styles.mainBannerContainer, { transform: [{ translateY: bannerTranslateY }] }]}>
         <MainBanner />
@@ -80,6 +87,10 @@ export default function HomeScreen() {
         onIndexChange={setIndex}
         initialLayout={{ width: WIDTHS.WINDOW }}
       />
+
+      <Animated.View style={[styles.bottomBanner, { transform: [{ translateY: footerTranslateY }] }]}>
+        <Text>Bottom banner</Text>
+      </Animated.View>
     </View>
   );
 }
@@ -116,5 +127,16 @@ const styles = StyleSheet.create({
     color: 'black',
     margin: 0,
     fontSize: 10,
+  },
+  bottomBanner: {
+    zIndex: 2,
+    bottom: 0,
+    position: 'absolute',
+    width: '100%',
+    height: HEIGHTS.BOTTOM_BANNER,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 16,
+    backgroundColor: 'skyblue',
   },
 });

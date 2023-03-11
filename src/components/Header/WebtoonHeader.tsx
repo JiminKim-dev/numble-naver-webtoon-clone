@@ -5,12 +5,18 @@ import Search from '@/components/Icon/Search';
 
 import { HEIGHTS, scale } from '@/styles/dimensions';
 
-export default function Header() {
+export default function Header({ scrollY }: { scrollY: Animated.Value }) {
+  const headerTranslateY = scrollY.interpolate({
+    inputRange: [0, HEIGHTS.HEADER / 10],
+    outputRange: [-HEIGHTS.HEADER, 0],
+    extrapolate: 'clamp',
+  });
+
   return (
     <>
       <Cookie onPressHandler={() => alert('press cookie')} style={{ ...styles.headerIcon, ...styles.headerLeft }} />
       <Search onPressHandler={() => alert('press search')} style={{ ...styles.headerIcon, ...styles.headerRight }} />
-      <Animated.View style={styles.header}>
+      <Animated.View style={[styles.header, { transform: [{ translateY: headerTranslateY }] }]}>
         <Text>인기순</Text>
       </Animated.View>
     </>
