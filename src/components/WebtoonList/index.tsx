@@ -1,4 +1,4 @@
-import { Animated, Pressable, StyleSheet, Text } from 'react-native';
+import { Animated, LayoutRectangle, Pressable, StyleSheet, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { HEIGHTS, scale } from '@/styles/dimensions';
 import { DetailScreenProps } from '@/navigations/types';
@@ -28,12 +28,21 @@ const DATA: DataTypes[] = [
 ];
 
 // 대략적인 구조
-export default function WebtoonList({ category }: { category: string }) {
+export default function WebtoonList({
+  category,
+  scrollY,
+  tabBarLayoutSize,
+}: {
+  category: string;
+  scrollY: Animated.Value;
+  tabBarLayoutSize: LayoutRectangle;
+}) {
   const navigation = useNavigation<DetailScreenProps['navigation']>();
 
   return (
     <Animated.FlatList
-      contentContainerStyle={styles.container}
+      contentContainerStyle={{ ...styles.container, ...{ paddingTop: tabBarLayoutSize.height + HEIGHTS.MAIN_BANNER } }}
+      onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: true })}
       data={DATA}
       numColumns={3}
       renderItem={({ item }) => (

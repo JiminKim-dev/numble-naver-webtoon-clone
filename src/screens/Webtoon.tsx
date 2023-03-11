@@ -1,14 +1,14 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { useState } from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { useRef, useState } from 'react';
+import { View, StyleSheet, Animated, LayoutRectangle, LayoutChangeEvent } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
 
 import Header from '@/components/Header/WebtoonHeader';
 import MainBanner from '@/components/Banner/MainBanner';
 
-import { scale, WIDTHS } from '@/styles/dimensions';
-import WebtoonList from '@/components/WebtoonList';
-import { DetailScreenProps } from '@/navigations/types';
+import { HEIGHTS, WIDTHS } from '@/styles/dimensions';
+
+import useOnLayout from '@/hooks/useLayout';
 
 interface RouteType {
   id: number;
@@ -33,26 +33,50 @@ export default function HomeScreen() {
   const [index, setIndex] = useState(0);
   const [routes] = useState(route);
 
-  const navigation = useNavigation<DetailScreenProps['navigation']>();
+  const [layoutSize, onLayout] = useOnLayout();
+
+  const scrollY = useRef(new Animated.Value(0)).current;
+  const bannerTranslateY = scrollY.interpolate({
+    inputRange: [0, HEIGHTS.MAIN_BANNER],
+    outputRange: [0, -HEIGHTS.MAIN_BANNER],
+    extrapolate: 'clamp',
+  });
+
+  const tabBarTranslateY = scrollY.interpolate({
+    inputRange: [0, HEIGHTS.MAIN_BANNER - HEIGHTS.HEADER],
+    outputRange: [HEIGHTS.MAIN_BANNER, HEIGHTS.HEADER],
+    extrapolate: 'clamp',
+  });
 
   return (
     <View style={styles.container}>
       <Header />
-      <MainBanner />
+
+      <Animated.View style={[styles.mainBannerContainer, { transform: [{ translateY: bannerTranslateY }] }]}>
+        <MainBanner />
+      </Animated.View>
 
       <TabView
         renderTabBar={(props) => (
-          <TabBar
-            {...props}
-            style={styles.TabBar}
-            indicatorStyle={styles.TabBarIndicator}
-            labelStyle={styles.TabBarLabel}
-            activeColor="green"
-            pressColor="transparent"
-          />
+          <Animated.View
+            style={[styles.TabBarView, { transform: [{ translateY: tabBarTranslateY }] }]}
+            // eslint-disable-next-line no-unused-vars
+            onLayout={onLayout as (e: LayoutChangeEvent) => void}
+          >
+            <TabBar
+              {...props}
+              style={styles.TabBar}
+              indicatorStyle={styles.TabBarIndicator}
+              labelStyle={styles.TabBarLabel}
+              activeColor="green"
+              pressColor="transparent"
+            />
+          </Animated.View>
         )}
         navigationState={{ index, routes }}
-        renderScene={(props) => <WebtoonList category={props.route.key} />}
+        renderScene={(props) => (
+          <WebtoonList category={props.route.key} scrollY={scrollY} tabBarLayoutSize={layoutSize as LayoutRectangle} />
+        )}
         onIndexChange={setIndex}
         initialLayout={{ width: WIDTHS.WINDOW }}
       />
@@ -64,6 +88,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     position: 'relative',
+  },
+  mainBannerContainer: {
+    zIndex: 2,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    overflow: 'hidden',
+    width: '100%',
+    height: HEIGHTS.MAIN_BANNER,
   },
   TabBar: {
     zIndex: 2,
@@ -82,14 +116,5 @@ const styles = StyleSheet.create({
     color: 'black',
     margin: 0,
     fontSize: 10,
-  },
-  item: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: WIDTHS.WINDOW - scale(12) * 2,
-    height: scale(1000),
-    backgroundColor: 'lightgray',
-    marginHorizontal: scale(12),
   },
 });
