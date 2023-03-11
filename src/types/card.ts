@@ -3,12 +3,12 @@ import { ResponseItemData } from '@/types/api';
 export interface CardStyleProps {
   imageSize: 'tiny' | 'small' | 'medium' | 'large';
   direction?: 'horizontal' | 'vertical';
-  options?: 'default' | 'ranking';
 }
 
 export interface CardProps {
   cardData: ResponseItemData;
   cardStyle: CardStyleProps;
+  ranking?: number;
 }
 
 type CardImageInfoProps = Pick<ResponseItemData, 'title' | 'imageDownloadUrl'>;
