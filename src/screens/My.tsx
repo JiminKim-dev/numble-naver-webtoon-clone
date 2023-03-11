@@ -1,6 +1,6 @@
 import { Button, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { DetailScreenProps } from '@/navigations/types';
+import { DetailScreenProps } from '@/types/navigation';
 
 export default function MyScreen() {
   const navigation = useNavigation<DetailScreenProps['navigation']>();
