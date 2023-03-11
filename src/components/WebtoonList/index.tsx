@@ -24,7 +24,6 @@ export default function WebtoonList({
       onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: true })}
       data={makeMockWebtoonList(11)}
       numColumns={3}
-      // horizontal
       renderItem={({ item, index }) => (
         <Pressable
           style={styles.card}
@@ -46,6 +45,5 @@ const styles = StyleSheet.create({
   },
   card: {
     margin: scale(4),
-    // width: WIDTHS.WINDOW,
   },
 });
