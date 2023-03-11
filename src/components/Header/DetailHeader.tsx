@@ -2,7 +2,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Ionicons, EvilIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 
-import { DetailScreenProps, MyScreenProps } from '@/navigations/types';
+import { DetailScreenProps, MyScreenProps } from '@/types/navigation';
 import { HEIGHTS, scale } from '@/styles/dimensions';
 
 export default function DetailHeader() {

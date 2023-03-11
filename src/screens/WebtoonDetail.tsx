@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { DetailScreenProps } from '@/navigations/types';
+import { DetailScreenProps } from '@/types/navigation';
 import DetailHeader from '@/components/Header/DetailHeader';
 
 export default function DetailScreen({ route }: DetailScreenProps) {

@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FontAwesome5, AntDesign } from '@expo/vector-icons';
 
-import { RootStackParamList } from '@/navigations/types';
+import { RootStackParamList } from '@/types/navigation';
 import WebtoonNavigator from '@/navigations/WebtoonNavigator';
 import MyScreen from '@/screens/My';
 

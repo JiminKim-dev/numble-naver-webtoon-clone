@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { WebtoonStackParamList } from '@/navigations/types';
+import { WebtoonStackParamList } from '@/types/navigation';
 
 import WebtoonScreen from '@/screens/Webtoon';
 import DetailScreen from '@/screens/WebtoonDetail';
