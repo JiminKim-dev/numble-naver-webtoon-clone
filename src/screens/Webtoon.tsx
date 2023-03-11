@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { View, StyleSheet, Animated, LayoutRectangle, LayoutChangeEvent, Text } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
 
@@ -54,6 +54,10 @@ export default function HomeScreen() {
     outputRange: [HEIGHTS.BOTTOM_BANNER, 0],
     extrapolate: 'clamp',
   });
+
+  useEffect(() => {
+    scrollY.setValue(0);
+  }, [index]);
 
   return (
     <View style={styles.container}>
