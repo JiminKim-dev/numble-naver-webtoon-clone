@@ -30,7 +30,7 @@ export default function Card({ cardData, cardStyle, ranking }: CardProps) {
           <Text style={styles.title} numberOfLines={1}>
             {title}
           </Text>
-          {imageSize !== 'tiny' && direction !== 'horizontal' && (
+          {(imageSize === 'tiny' && direction !== 'horizontal') || (
             <Text style={styles.writer} numberOfLines={1}>
               {pictrWritrNm}, {sntncWritrNm}
             </Text>
