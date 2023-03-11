@@ -7,7 +7,7 @@ import Header from '@/components/Header/WebtoonHeader';
 import MainBanner from '@/components/Banner/MainBanner';
 
 import { scale, WIDTHS } from '@/styles/dimensions';
-import { useNavigation } from '@react-navigation/native';
+import WebtoonList from '@/components/WebtoonList';
 import { DetailScreenProps } from '@/navigations/types';
 
 interface RouteType {
@@ -52,14 +52,7 @@ export default function HomeScreen() {
           />
         )}
         navigationState={{ index, routes }}
-        renderScene={(props) => (
-          <Pressable
-            style={styles.item}
-            onPress={() => navigation.navigate('DetailScreen', { id: 1, title: '웹툰1', from: 'WebtoonScreen' })}
-          >
-            <Text>{props.route.title} 웹툰</Text>
-          </Pressable>
-        )} // 추후 다른 컴포넌트로 교체
+        renderScene={(props) => <WebtoonList category={props.route.key} />}
         onIndexChange={setIndex}
         initialLayout={{ width: WIDTHS.WINDOW }}
       />
