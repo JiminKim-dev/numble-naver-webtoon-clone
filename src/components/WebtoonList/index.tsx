@@ -1,7 +1,10 @@
-import { Animated, LayoutRectangle, Pressable, StyleSheet, Text } from 'react-native';
+import { Animated, LayoutRectangle, Pressable, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { HEIGHTS, scale } from '@/styles/dimensions';
 import { DetailScreenProps } from '@/types/navigation';
+
+import Card from '@/components/Card';
+import { HEIGHTS, scale } from '@/styles/dimensions';
+import { makeMockWebtoonList } from '@/utils/mockWebtoonList';
 
 // 대략적인 구조
 export default function WebtoonList({
@@ -19,16 +22,17 @@ export default function WebtoonList({
     <Animated.FlatList
       contentContainerStyle={{ ...styles.container, ...{ paddingTop: tabBarLayoutSize.height + HEIGHTS.MAIN_BANNER } }}
       onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: true })}
-      data={DATA}
+      data={makeMockWebtoonList(11)}
       numColumns={3}
-      renderItem={({ item }) => (
+      // horizontal
+      renderItem={({ item, index }) => (
         <Pressable
           style={styles.card}
-          onPress={() => navigation.navigate('DetailScreen', { id: item.id, title: item.title, from: 'WebtoonScreen' })}
+          onPress={() =>
+            navigation.navigate('DetailScreen', { id: Number(item.mastrId), title: item.title, from: 'WebtoonScreen' })
+          }
         >
-          <Text>
-            {category}: {item.title}-{item.id}
-          </Text>
+          <Card cardData={item} cardStyle={{ imageSize: 'large' }} />
         </Pressable>
       )}
     />
@@ -41,10 +45,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: scale(4),
   },
   card: {
-    flex: 1,
-    width: scale(150),
-    height: scale(150),
-    backgroundColor: '#fff',
     margin: scale(4),
+    // width: WIDTHS.WINDOW,
   },
 });
