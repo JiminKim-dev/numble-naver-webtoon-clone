@@ -19,6 +19,8 @@ export default function Header() {
 
 const styles = StyleSheet.create({
   header: {
+    zIndex: 3,
+    position: 'absolute',
     width: '100%',
     height: HEIGHTS.HEADER,
     alignItems: 'center',
