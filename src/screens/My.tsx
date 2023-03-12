@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { FlatList, Pressable, StyleSheet, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { DetailScreenProps } from '@/types/navigation';
 import { ResponseItemData } from '@/types/api';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Card from '@/components/Card';
+import PressableNavigateDetail from '@/components/PressableNavigateDetail';
 import { scale } from '@/styles/dimensions';
 import { makeMockWebtoonList } from '@/utils/mockWebtoonList';
 
@@ -15,7 +14,6 @@ interface NotificationState {
 }
 
 export default function MyScreen() {
-  const navigation = useNavigation<DetailScreenProps['navigation']>();
   const [notificationState, setNotificationState] = useState<NotificationState[]>([]);
 
   const findNotificationState = (id: string) => notificationState.findIndex((el) => el.id === Number(id));
@@ -41,13 +39,10 @@ export default function MyScreen() {
       data={makeMockWebtoonList(13)}
       renderItem={({ item }) => (
         <View style={styles.itemContainer}>
-          <Pressable
-            onPress={() =>
-              navigation.navigate('DetailScreen', { id: Number(item.mastrId), title: item.title, from: 'MyScreen' })
-            }
-          >
+          <PressableNavigateDetail item={item} from="MyScreen">
             <Card cardData={item} cardStyle={{ imageSize: 'tiny', direction: 'horizontal' }} />
-          </Pressable>
+          </PressableNavigateDetail>
+
           <Pressable style={{}} onPress={() => onPressHandler(item)}>
             <MaterialCommunityIcons
               name={isAlramActive(item.mastrId) ? 'bell' : 'bell-off-outline'}

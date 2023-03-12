@@ -1,8 +1,7 @@
-import { Animated, LayoutRectangle, Pressable, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { DetailScreenProps } from '@/types/navigation';
+import { Animated, LayoutRectangle, StyleSheet, View } from 'react-native';
 
 import Card from '@/components/Card';
+import PressableNavigateDetail from '@/components/PressableNavigateDetail';
 import { HEIGHTS, scale } from '@/styles/dimensions';
 import { makeMockWebtoonList } from '@/utils/mockWebtoonList';
 
@@ -16,23 +15,21 @@ export default function WebtoonList({
   scrollY: Animated.Value;
   tabBarLayoutSize: LayoutRectangle;
 }) {
-  const navigation = useNavigation<DetailScreenProps['navigation']>();
-
   return (
     <Animated.FlatList
-      contentContainerStyle={{ ...styles.container, ...{ paddingTop: tabBarLayoutSize.height + HEIGHTS.MAIN_BANNER } }}
+      contentContainerStyle={{
+        ...styles.container,
+        ...{ paddingTop: tabBarLayoutSize.height + HEIGHTS.MAIN_BANNER },
+      }}
       onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: true })}
       data={makeMockWebtoonList(11)}
       numColumns={3}
-      renderItem={({ item, index }) => (
-        <Pressable
-          style={styles.card}
-          onPress={() =>
-            navigation.navigate('DetailScreen', { id: Number(item.mastrId), title: item.title, from: 'WebtoonScreen' })
-          }
-        >
-          <Card cardData={item} cardStyle={{ imageSize: 'large' }} />
-        </Pressable>
+      renderItem={({ item }) => (
+        <PressableNavigateDetail item={item} from="WebtoonScreen">
+          <View style={styles.card}>
+            <Card cardData={item} cardStyle={{ imageSize: 'large' }} />
+          </View>
+        </PressableNavigateDetail>
       )}
     />
   );
