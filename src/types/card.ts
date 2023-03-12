@@ -9,6 +9,7 @@ export interface CardProps {
   cardData: ResponseItemData;
   cardStyle: CardStyleProps;
   ranking?: number;
+  episode?: number;
 }
 
 type CardImageInfoProps = Pick<ResponseItemData, 'title' | 'imageDownloadUrl'>;
