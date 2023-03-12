@@ -14,6 +14,7 @@ export default function RecommendList() {
         style={styles.flatList}
         data={makeMockWebtoonGridList(makeMockWebtoonList(17), 3)}
         horizontal
+        keyExtractor={(item) => item[0].mastrId.toString()}
         renderItem={({ item: items }) => (
           <View style={styles.card}>
             {items.map((item) => (

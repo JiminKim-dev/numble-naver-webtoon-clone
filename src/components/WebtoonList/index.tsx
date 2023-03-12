@@ -28,6 +28,7 @@ export default function WebtoonList({
       onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: true })}
       data={makeMockWebtoonList(11)}
       numColumns={3}
+      keyExtractor={(item) => item.mastrId.toString()}
       renderItem={({ item }) => (
         <PressableNavigateDetail item={item} from="WebtoonScreen">
           <View style={styles.card}>

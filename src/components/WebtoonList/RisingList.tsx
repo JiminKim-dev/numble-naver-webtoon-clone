@@ -14,6 +14,7 @@ export default function RisingList() {
         style={styles.flatList}
         data={makeMockWebtoonList(12)}
         horizontal
+        keyExtractor={(item) => item.mastrId.toString()}
         renderItem={({ item }) => {
           return (
             <PressableNavigateDetail item={item} from="WebtoonScreen">

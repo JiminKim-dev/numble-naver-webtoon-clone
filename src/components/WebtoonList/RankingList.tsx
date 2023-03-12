@@ -15,6 +15,7 @@ export default function RankingList() {
         style={styles.flatList}
         data={makeMockWebtoonList(9)}
         horizontal
+        keyExtractor={(item) => item.mastrId.toString()}
         renderItem={({ item, index }) => {
           return (
             <PressableNavigateDetail item={item} from="WebtoonScreen">
