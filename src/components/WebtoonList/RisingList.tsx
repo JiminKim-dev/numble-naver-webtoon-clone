@@ -1,8 +1,8 @@
 import { scale } from '@/styles/dimensions';
 import { makeMockWebtoonList } from '@/utils/mockWebtoonList';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import Card from '../Card';
-import PressableNavigateDetail from '../PressableNavigateDetail';
+import Card from '@/components/Card';
+import PressableNavigateDetail from '@/components/PressableNavigateDetail';
 
 export default function RisingList() {
   return (
@@ -14,7 +14,7 @@ export default function RisingList() {
         style={styles.flatList}
         data={makeMockWebtoonList(12)}
         horizontal
-        renderItem={({ item, index }) => {
+        renderItem={({ item }) => {
           return (
             <PressableNavigateDetail item={item} from="WebtoonScreen">
               <View style={styles.card}>
