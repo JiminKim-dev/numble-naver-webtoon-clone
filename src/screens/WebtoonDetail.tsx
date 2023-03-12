@@ -1,18 +1,29 @@
-import { FlatList, Pressable, StyleSheet, View } from 'react-native';
+import { useRef } from 'react';
+import { Animated, FlatList, Pressable, StyleSheet, View } from 'react-native';
 
 import { Feather } from '@expo/vector-icons';
 import DetailHeader from '@/components/Header/DetailHeader';
 import Card from '@/components/Card';
-import { scale } from '@/styles/dimensions';
+import { HEIGHTS, scale } from '@/styles/dimensions';
 
 import { makeMockWebtoonList } from '@/utils/mockWebtoonList';
 
 export default function DetailScreen() {
+  const scrollY = useRef(new Animated.Value(0)).current;
+  const flatListRef = useRef<FlatList | null>(null);
+
+  const arrowButtonActive = scrollY.interpolate({
+    inputRange: [0, HEIGHTS.WINDOW / 6],
+    outputRange: [0, 0.5],
+  });
+
   return (
     <View style={styles.container}>
       <DetailHeader />
 
-      <FlatList
+      <Animated.FlatList
+        ref={flatListRef}
+        onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: true })}
         contentContainerStyle={styles.FlatListContainer}
         data={makeMockWebtoonList(20).reverse()}
         renderItem={({ item, index }) => (
@@ -25,9 +36,11 @@ export default function DetailScreen() {
           </View>
         )}
       />
-      <Pressable style={styles.arrow} onPress={() => {}}>
-        <Feather name="arrow-up" size={32} color="black" />
-      </Pressable>
+      <Animated.View style={[styles.arrow, { opacity: arrowButtonActive }]}>
+        <Pressable onPress={() => flatListRef.current?.scrollToOffset({ animated: true, offset: 0 })}>
+          <Feather name="arrow-up" size={32} color="black" />
+        </Pressable>
+      </Animated.View>
     </View>
   );
 }
