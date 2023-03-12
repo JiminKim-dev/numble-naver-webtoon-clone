@@ -26,6 +26,7 @@ export default function DetailScreen() {
         onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: true })}
         contentContainerStyle={styles.FlatListContainer}
         data={makeMockWebtoonList(20).reverse()}
+        keyExtractor={(item) => item.mastrId.toString()}
         renderItem={({ item, index }) => (
           <View style={styles.itemContainer}>
             <Card

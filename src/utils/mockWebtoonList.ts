@@ -2,7 +2,7 @@ import { ResponseItemData } from '@/types/api';
 
 export const MOCK_IMAGE_URL = 'https://avatars.githubusercontent.com/u/85747667?v=4';
 
-const makeMockWebtoonItem = (num: number) =>
+export const makeMockWebtoonItem = (num: number) =>
   ({
     mastrId: `${num}`,
     listSeCd: '1',
@@ -62,4 +62,14 @@ const makeMockWebtoonItem = (num: number) =>
 
 export const makeMockWebtoonList = (num: number) => {
   return Array.from({ length: num }, (_, index) => makeMockWebtoonItem(index + 1));
+};
+export const makeMockWebtoonGridList = (list: ResponseItemData[], columns: number) => {
+  const row = Math.ceil(list.length / columns);
+
+  const newList = Array.from({ length: row }, (_, index) => {
+    const start = index * columns;
+    return list.slice(start, start + columns);
+  });
+
+  return newList;
 };
