@@ -45,7 +45,6 @@ export default function DetailHeader() {
 const styles = StyleSheet.create({
   header: {
     zIndex: 1,
-    position: 'absolute',
     width: '100%',
     height: HEIGHTS.HEADER,
     backgroundColor: '#fff',
@@ -53,6 +52,8 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     flexDirection: 'row',
     padding: scale(10),
+    borderBottomWidth: 1,
+    borderBottomColor: 'lightgray',
   },
   headerContent: {
     flexDirection: 'row',

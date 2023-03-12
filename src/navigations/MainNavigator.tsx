@@ -8,7 +8,7 @@ import WebtoonNavigator from '@/navigations/WebtoonNavigator';
 import MyScreen from '@/screens/My';
 
 import Search from '@/components/Icon/Search';
-import { scale } from '@/styles/dimensions';
+import { HEIGHTS, scale } from '@/styles/dimensions';
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
 
@@ -32,6 +32,7 @@ export default function MainTabNavigator() {
         component={MyScreen}
         options={{
           title: 'My',
+          headerStyle: { borderBottomWidth: 1, height: HEIGHTS.HEADER, borderBottomColor: 'lightgray' },
           headerTitleAlign: 'left',
           headerRight: () => <Search style={styles.search} onPressHandler={() => alert('press search')} />,
           tabBarActiveTintColor: 'green',
