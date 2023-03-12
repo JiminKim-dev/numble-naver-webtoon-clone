@@ -57,6 +57,7 @@ export default function HomeScreen() {
 
   useEffect(() => {
     scrollY.setValue(0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [index]);
 
   return (
@@ -71,7 +72,6 @@ export default function HomeScreen() {
         renderTabBar={(props) => (
           <Animated.View
             style={[styles.TabBarView, { transform: [{ translateY: tabBarTranslateY }] }]}
-            // eslint-disable-next-line no-unused-vars
             onLayout={onLayout as (e: LayoutChangeEvent) => void}
           >
             <TabBar

@@ -36,8 +36,10 @@ module.exports = {
     'no-use-before-define': 'off',
     'no-empty-function': 'off',
     '@typescript-eslint/no-empty-function': 'off',
-    'no-unused-vars': ['error', { vars: 'all', args: 'after-used', ignoreRestSiblings: false }],
     'react/function-component-definition': ['off', { namedComponents: ['arrow-function', 'function-declaration'] }],
+    'react-native/no-inline-styles': 'off',
+    'no-alert': 'off',
+    'no-unused-vars': 'off',
   },
   settings: {
     'import/resolver': {
@@ -45,5 +47,6 @@ module.exports = {
         allowExistingDirectories: true,
       },
     },
+    'import/core-modules': ['@expo/vector-icons'],
   },
 };
