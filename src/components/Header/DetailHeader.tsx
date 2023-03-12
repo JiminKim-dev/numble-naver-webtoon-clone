@@ -42,7 +42,7 @@ export default function DetailHeader() {
       { text: 'OK', onPress: () => setSubscribeState({ id, subscribe: true, notification: true }) },
     ]);
 
-  const SubscribeBtnPressHandler = (id: number) => {
+  const subscribeBtnPressHandler = (id: number) => {
     if (!subscribeState) {
       setNotificationActive(true);
       setCheckSubscribeButton(true);
@@ -88,7 +88,7 @@ export default function DetailHeader() {
       <View style={styles.headerContent}>
         <Pressable
           style={{ ...styles.headerContent, ...styles.subscribe, ...styles.contentGap }}
-          onPress={() => SubscribeBtnPressHandler(paramsId)}
+          onPress={() => subscribeBtnPressHandler(paramsId)}
         >
           <AntDesign
             name={subscribeButtonName() as 'pluscircle' | 'checkcircle' | 'pluscircleo'}
