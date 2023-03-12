@@ -1,15 +1,16 @@
-import { scale } from '@/styles/dimensions';
-import { makeMockWebtoonList } from '@/utils/mockWebtoonList';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
+
 import Card from '@/components/Card';
 import PressableNavigateDetail from '@/components/PressableNavigateDetail';
+import SectionLayout from '@/components/WebtoonList/SectionLayout';
+
+import { scale } from '@/styles/dimensions';
+
+import { makeMockWebtoonList } from '@/utils/mockWebtoonList';
 
 export default function RisingList() {
   return (
-    <View style={styles.container}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.title}>📈 지금 인기 급상승 웹툰!</Text>
-      </View>
+    <SectionLayout title="📈 지금 인기 급상승 웹툰!">
       <FlatList
         style={styles.flatList}
         data={makeMockWebtoonList(12)}
@@ -25,33 +26,15 @@ export default function RisingList() {
           );
         }}
       />
-    </View>
+    </SectionLayout>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginVertical: scale(8),
-  },
   flatList: {
     flexDirection: 'row',
   },
   card: {
     margin: scale(6),
-  },
-  titleContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: scale(16),
-    paddingHorizontal: scale(4),
-  },
-  titleWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: scale(2),
-  },
-  title: {
-    fontSize: scale(14),
   },
 });
