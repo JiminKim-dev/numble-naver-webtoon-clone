@@ -8,7 +8,6 @@ import { scale } from '@/styles/dimensions';
 
 import { makeMockWebtoonList } from '@/utils/mockWebtoonList';
 
-// 대략적인 구조
 export default function RankingList() {
   return (
     <SectionLayout title="🫶 여성 독자님들이 이번 주 가장 많이 본 New 추천완결!">

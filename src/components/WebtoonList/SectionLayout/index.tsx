@@ -2,7 +2,6 @@ import { ReactNode } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { scale } from '@/styles/dimensions';
 
-// 대략적인 구조
 export default function SectionLayout({ children, title }: { children: ReactNode; title: string }) {
   return (
     <View style={styles.container}>

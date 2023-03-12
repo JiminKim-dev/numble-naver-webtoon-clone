@@ -9,7 +9,6 @@ import RecommendList from '@/components/WebtoonList/RecommendList';
 import { HEIGHTS, scale } from '@/styles/dimensions';
 import { makeMockWebtoonList } from '@/utils/mockWebtoonList';
 
-// 대략적인 구조
 export default function WebtoonList({
   category,
   scrollY,
