@@ -1,14 +1,39 @@
+import { useState } from 'react';
 import { FlatList, Pressable, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { DetailScreenProps } from '@/types/navigation';
+import { ResponseItemData } from '@/types/api';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Card from '@/components/Card';
 import { scale } from '@/styles/dimensions';
 import { makeMockWebtoonList } from '@/utils/mockWebtoonList';
 
+interface NotificationState {
+  id: number;
+  notification: boolean;
+}
+
 export default function MyScreen() {
   const navigation = useNavigation<DetailScreenProps['navigation']>();
+  const [notificationState, setNotificationState] = useState<NotificationState[]>([]);
+
+  const findNotificationState = (id: string) => notificationState.findIndex((el) => el.id === Number(id));
+  const onPressHandler = (item: ResponseItemData) => {
+    const findIndex = findNotificationState(item.mastrId);
+    if (findIndex < 0) {
+      return setNotificationState([...notificationState, { id: Number(item.mastrId), notification: true }]);
+    }
+
+    const changeAlramState = [...notificationState].map((state) =>
+      state.id === Number(item.mastrId) ? { ...state, notification: !state.notification } : state,
+    );
+
+    return setNotificationState(changeAlramState);
+  };
+
+  const isAlramActive = (id: string) =>
+    notificationState[findNotificationState(id)] && notificationState[findNotificationState(id)].notification;
 
   return (
     <FlatList
@@ -23,8 +48,12 @@ export default function MyScreen() {
           >
             <Card cardData={item} cardStyle={{ imageSize: 'tiny', direction: 'horizontal' }} />
           </Pressable>
-          <Pressable style={{}} onPress={() => {}}>
-            <MaterialCommunityIcons name="bell" size={24} color="green" />
+          <Pressable style={{}} onPress={() => onPressHandler(item)}>
+            <MaterialCommunityIcons
+              name={isAlramActive(item.mastrId) ? 'bell' : 'bell-off-outline'}
+              size={24}
+              color={isAlramActive(item.mastrId) ? 'green' : 'black'}
+            />
           </Pressable>
         </View>
       )}
