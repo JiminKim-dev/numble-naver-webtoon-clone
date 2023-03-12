@@ -2,6 +2,7 @@ import { Animated, LayoutRectangle, StyleSheet, View } from 'react-native';
 
 import Card from '@/components/Card';
 import PressableNavigateDetail from '@/components/PressableNavigateDetail';
+import RankingList from '@/components/WebtoonList/Ranking';
 import { HEIGHTS, scale } from '@/styles/dimensions';
 import { makeMockWebtoonList } from '@/utils/mockWebtoonList';
 
@@ -31,6 +32,7 @@ export default function WebtoonList({
           </View>
         </PressableNavigateDetail>
       )}
+      ListFooterComponent={<RankingList />}
     />
   );
 }
