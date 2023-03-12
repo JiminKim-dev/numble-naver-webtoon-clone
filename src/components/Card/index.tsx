@@ -5,7 +5,7 @@ import CardImage from '@/components/Card/CardImage';
 
 import { CARD_SIZE, scale } from '@/styles/dimensions';
 
-export default function Card({ cardData, cardStyle, ranking }: CardProps) {
+export default function Card({ cardData, cardStyle, ranking, episode }: CardProps) {
   const { imageSize, direction } = cardStyle;
   const { title, imageDownloadUrl, pictrWritrNm, sntncWritrNm } = cardData;
 
@@ -27,10 +27,14 @@ export default function Card({ cardData, cardStyle, ranking }: CardProps) {
         )}
 
         <View style={ranking ? rankingTitleContainerStyles : styles.titleContainer}>
-          <Text style={styles.title} numberOfLines={1}>
-            {title}
-          </Text>
-          {(imageSize === 'tiny' && direction !== 'horizontal') || (
+          <View style={{ flexDirection: 'row' }}>
+            {episode && <Text style={styles.title}>{episode}화. </Text>}
+            <Text style={styles.title} numberOfLines={1}>
+              {title}
+            </Text>
+          </View>
+
+          {(imageSize === 'tiny' && direction !== 'horizontal') || !!episode || (
             <Text style={styles.writer} numberOfLines={1}>
               {pictrWritrNm}, {sntncWritrNm}
             </Text>
