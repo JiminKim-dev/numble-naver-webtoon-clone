@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
     marginVertical: scale(8),
   },
   flatList: {
-    backgroundColor: '#fff',
     flexDirection: 'row',
   },
   card: {
