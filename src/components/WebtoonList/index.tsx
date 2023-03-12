@@ -5,6 +5,7 @@ import PressableNavigateDetail from '@/components/PressableNavigateDetail';
 import RankingList from '@/components/WebtoonList/RankingList';
 import { HEIGHTS, scale } from '@/styles/dimensions';
 import { makeMockWebtoonList } from '@/utils/mockWebtoonList';
+import RisingList from '@/components/WebtoonList/RisingList';
 
 // 대략적인 구조
 export default function WebtoonList({
@@ -32,7 +33,12 @@ export default function WebtoonList({
           </View>
         </PressableNavigateDetail>
       )}
-      ListFooterComponent={<RankingList />}
+      ListFooterComponent={
+        <>
+          <RankingList />
+          <RisingList />
+        </>
+      }
     />
   );
 }
