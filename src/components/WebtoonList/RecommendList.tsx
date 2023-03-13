@@ -15,11 +15,11 @@ export default function RecommendList() {
         style={styles.flatList}
         data={makeMockWebtoonGridList(makeMockWebtoonList(17), 3)}
         horizontal
-        keyExtractor={(item) => item[0].mastrId.toString()}
+        keyExtractor={(item) => `section-new-${item[0].mastrId.toString()}`}
         renderItem={({ item: items }) => (
           <View style={styles.card}>
             {items.map((item) => (
-              <View style={styles.card}>
+              <View style={styles.card} key={item.mastrId}>
                 <PressableNavigateDetail item={item} from="WebtoonScreen">
                   <Card cardData={item} cardStyle={{ imageSize: 'small', direction: 'horizontal' }} />
                 </PressableNavigateDetail>

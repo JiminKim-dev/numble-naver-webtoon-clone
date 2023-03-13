@@ -55,10 +55,10 @@ export default function HomeScreen() {
     extrapolate: 'clamp',
   });
 
-  useEffect(() => {
-    scrollY.setValue(0);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [index]);
+  // useEffect(() => {
+  //   scrollY.setValue(0);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [index]);
 
   return (
     <View style={styles.container}>

@@ -37,7 +37,7 @@ export default function MyScreen() {
     <FlatList
       contentContainerStyle={styles.FlatListContainer}
       data={makeMockWebtoonList(13)}
-      keyExtractor={(item) => item.mastrId.toString()}
+      keyExtractor={(item) => `my-${item.mastrId.toString()}`}
       renderItem={({ item }) => (
         <View style={styles.itemContainer}>
           <PressableNavigateDetail item={item} from="MyScreen">
