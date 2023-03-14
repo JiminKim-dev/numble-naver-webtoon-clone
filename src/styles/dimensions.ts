@@ -18,6 +18,7 @@ const HEIGHTS = {
   HEADER: verticalScale(80),
   MAIN_BANNER: verticalScale(240),
   BOTTOM_BANNER: verticalScale(60),
+  TAB_BAR: verticalScale(48),
 };
 
 const WIDTHS = {

@@ -9,20 +9,12 @@ import RecommendList from '@/components/WebtoonList/RecommendList';
 import { HEIGHTS, scale } from '@/styles/dimensions';
 import { makeMockWebtoonList } from '@/utils/mockWebtoonList';
 
-export default function WebtoonList({
-  category,
-  scrollY,
-  tabBarLayoutSize,
-}: {
-  category: string;
-  scrollY: Animated.Value;
-  tabBarLayoutSize: LayoutRectangle;
-}) {
+export default function WebtoonList({ category, scrollY }: { category: string; scrollY: Animated.Value }) {
   return (
     <Animated.FlatList
       contentContainerStyle={{
         ...styles.container,
-        ...{ paddingTop: tabBarLayoutSize.height + HEIGHTS.MAIN_BANNER },
+        ...{ paddingTop: HEIGHTS.TAB_BAR + HEIGHTS.MAIN_BANNER },
       }}
       onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: true })}
       data={makeMockWebtoonList(11)}
