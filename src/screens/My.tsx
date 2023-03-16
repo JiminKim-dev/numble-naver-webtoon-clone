@@ -5,7 +5,7 @@ import { ResponseItemData } from '@/types/api';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Card from '@/components/Card';
-import NavigateDetailLayout from '@/components/NavigateDetailLayout';
+import NavigateDetailLayout from '@/components/Layout/NavigateDetailLayout';
 import ITEM_STYLE from '@/styles/flatListItem';
 import { scale } from '@/styles/dimensions';
 

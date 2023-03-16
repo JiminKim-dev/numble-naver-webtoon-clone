@@ -2,8 +2,8 @@ import { useCallback } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 
 import Card from '@/components/Card';
-import NavigateDetailLayout from '@/components/NavigateDetailLayout';
-import SectionLayout from '@/components/WebtoonList/SectionLayout';
+import NavigateDetailLayout from '@/components/Layout/NavigateDetailLayout';
+import SectionLayout from '@/components/Layout/SectionLayout';
 import ITEM_STYLE from '@/styles/flatListItem';
 
 import { makeMockWebtoonList } from '@/utils/mockWebtoonList';

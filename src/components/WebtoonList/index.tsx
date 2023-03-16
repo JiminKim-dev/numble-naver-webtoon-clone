@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { Animated, StyleSheet, View } from 'react-native';
 
 import Card from '@/components/Card';
-import NavigateDetailLayout from '@/components/NavigateDetailLayout';
+import NavigateDetailLayout from '@/components/Layout/NavigateDetailLayout';
 import RankingList from '@/components/WebtoonList/RankingList';
 import RisingList from '@/components/WebtoonList/RisingList';
 import RecommendList from '@/components/WebtoonList/RecommendList';
