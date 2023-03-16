@@ -1,4 +1,5 @@
-import { useRef } from 'react';
+/* eslint-disable react/no-unused-prop-types */
+import { useCallback, useRef } from 'react';
 import { Animated, FlatList, Pressable, StyleSheet, View } from 'react-native';
 
 import { Feather } from '@expo/vector-icons';
@@ -7,6 +8,13 @@ import Card from '@/components/Card';
 import { HEIGHTS, scale } from '@/styles/dimensions';
 
 import { makeMockWebtoonList } from '@/utils/mockWebtoonList';
+import { ResponseItemData } from '@/types/api';
+
+const DetailEpisodeItem = ({ item, index }: { item: ResponseItemData; index: number }) => (
+  <View style={styles.itemContainer}>
+    <Card cardData={item} cardStyle={{ imageSize: 'tiny', direction: 'horizontal' }} episode={index} />
+  </View>
+);
 
 export default function DetailScreen() {
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -17,6 +25,15 @@ export default function DetailScreen() {
     outputRange: [0, 0.5],
   });
 
+  const DATA = makeMockWebtoonList(20);
+
+  const RenderItem = useCallback(
+    ({ item, index }: { item: ResponseItemData; index: number }) => (
+      <DetailEpisodeItem item={item} index={DATA.length - index} />
+    ),
+    [],
+  );
+
   return (
     <View style={styles.container}>
       <DetailHeader />
@@ -25,17 +42,9 @@ export default function DetailScreen() {
         ref={flatListRef}
         onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: true })}
         contentContainerStyle={styles.FlatListContainer}
-        data={makeMockWebtoonList(20).reverse()}
+        data={DATA.reverse()}
         keyExtractor={(item) => `detail-${item.mastrId.toString()}`}
-        renderItem={({ item, index }) => (
-          <View style={styles.itemContainer}>
-            <Card
-              cardData={item}
-              cardStyle={{ imageSize: 'tiny', direction: 'horizontal' }}
-              episode={makeMockWebtoonList(20).length - index}
-            />
-          </View>
-        )}
+        renderItem={RenderItem}
       />
       <Animated.View style={[styles.arrow, { opacity: arrowButtonActive }]}>
         <Pressable onPress={() => flatListRef.current?.scrollToOffset({ animated: true, offset: 0 })}>

@@ -1,4 +1,5 @@
-import { useState } from 'react';
+/* eslint-disable react/no-unused-prop-types */
+import { useCallback, useState } from 'react';
 import { FlatList, Pressable, StyleSheet, View } from 'react-native';
 import { ResponseItemData } from '@/types/api';
 
@@ -38,20 +39,23 @@ export default function MyScreen() {
       contentContainerStyle={styles.FlatListContainer}
       data={makeMockWebtoonList(13)}
       keyExtractor={(item) => `my-${item.mastrId.toString()}`}
-      renderItem={({ item }) => (
-        <View style={styles.itemContainer}>
-          <PressableNavigateDetail item={item} from="MyScreen">
-            <Card cardData={item} cardStyle={{ imageSize: 'tiny', direction: 'horizontal' }} />
-          </PressableNavigateDetail>
+      renderItem={useCallback(
+        ({ item }: { item: ResponseItemData }) => (
+          <View style={styles.itemContainer}>
+            <PressableNavigateDetail item={item} from="MyScreen">
+              <Card cardData={item} cardStyle={{ imageSize: 'tiny', direction: 'horizontal' }} />
+            </PressableNavigateDetail>
 
-          <Pressable style={{}} onPress={() => onPressHandler(item)}>
-            <MaterialCommunityIcons
-              name={isAlramActive(item.mastrId) ? 'bell' : 'bell-off-outline'}
-              size={24}
-              color={isAlramActive(item.mastrId) ? 'green' : 'black'}
-            />
-          </Pressable>
-        </View>
+            <Pressable style={{}} onPress={() => onPressHandler(item)}>
+              <MaterialCommunityIcons
+                name={isAlramActive(item.mastrId) ? 'bell' : 'bell-off-outline'}
+                size={24}
+                color={isAlramActive(item.mastrId) ? 'green' : 'black'}
+              />
+            </Pressable>
+          </View>
+        ),
+        [],
       )}
     />
   );

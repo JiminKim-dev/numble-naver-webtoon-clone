@@ -1,4 +1,5 @@
-import { Animated, LayoutRectangle, StyleSheet, View } from 'react-native';
+import { useCallback } from 'react';
+import { Animated, StyleSheet, View } from 'react-native';
 
 import Card from '@/components/Card';
 import PressableNavigateDetail from '@/components/PressableNavigateDetail';
@@ -8,8 +9,21 @@ import RecommendList from '@/components/WebtoonList/RecommendList';
 
 import { HEIGHTS, scale } from '@/styles/dimensions';
 import { makeMockWebtoonList } from '@/utils/mockWebtoonList';
+import { ResponseItemData } from '@/types/api';
+
+const MainWebtoonCard = ({ item }: { item: ResponseItemData }) => {
+  return (
+    <PressableNavigateDetail item={item} from="WebtoonScreen">
+      <View style={styles.card}>
+        <Card cardData={item} cardStyle={{ imageSize: 'large' }} />
+      </View>
+    </PressableNavigateDetail>
+  );
+};
 
 export default function WebtoonList({ category, scrollY }: { category: string; scrollY: Animated.Value }) {
+  const RanderItem = useCallback(MainWebtoonCard, []);
+
   return (
     <Animated.FlatList
       contentContainerStyle={{
@@ -20,13 +34,7 @@ export default function WebtoonList({ category, scrollY }: { category: string; s
       data={makeMockWebtoonList(11)}
       numColumns={3}
       keyExtractor={(item) => `${category}-main-${item.mastrId.toString()}`}
-      renderItem={({ item }) => (
-        <PressableNavigateDetail item={item} from="WebtoonScreen">
-          <View style={styles.card}>
-            <Card cardData={item} cardStyle={{ imageSize: 'large' }} />
-          </View>
-        </PressableNavigateDetail>
-      )}
+      renderItem={RanderItem}
       ListFooterComponent={
         <>
           <RisingList />

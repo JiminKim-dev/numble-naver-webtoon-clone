@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 
 import Card from '@/components/Card';
@@ -7,6 +8,19 @@ import SectionLayout from '@/components/WebtoonList/SectionLayout';
 import { scale, WIDTHS } from '@/styles/dimensions';
 
 import { makeMockWebtoonList, makeMockWebtoonGridList } from '@/utils/mockWebtoonList';
+import { ResponseItemData } from '@/types/api';
+
+const RecommendCard = (item: ResponseItemData) => {
+  const { mastrId } = item;
+
+  return (
+    <PressableNavigateDetail item={item} from="WebtoonScreen" key={mastrId}>
+      <View style={styles.card}>
+        <Card cardData={item} cardStyle={{ imageSize: 'small', direction: 'horizontal' }} />
+      </View>
+    </PressableNavigateDetail>
+  );
+};
 
 export default function RecommendList() {
   return (
@@ -16,16 +30,11 @@ export default function RecommendList() {
         data={makeMockWebtoonGridList(makeMockWebtoonList(17), 3)}
         horizontal
         keyExtractor={(item) => `section-new-${item[0].mastrId.toString()}`}
-        renderItem={({ item: items }) => (
-          <View style={styles.card}>
-            {items.map((item) => (
-              <View style={styles.card} key={item.mastrId}>
-                <PressableNavigateDetail item={item} from="WebtoonScreen">
-                  <Card cardData={item} cardStyle={{ imageSize: 'small', direction: 'horizontal' }} />
-                </PressableNavigateDetail>
-              </View>
-            ))}
-          </View>
+        renderItem={useCallback(
+          ({ item: items }) => (
+            <View style={styles.card}>{items.map(RecommendCard)}</View>
+          ),
+          [],
         )}
       />
     </SectionLayout>
@@ -37,7 +46,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   card: {
-    margin: scale(4),
+    margin: scale(6),
     width: WIDTHS.WINDOW * 0.65,
   },
 });
