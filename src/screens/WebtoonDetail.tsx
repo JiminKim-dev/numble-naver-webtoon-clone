@@ -5,14 +5,15 @@ import { Animated, FlatList, Pressable, StyleSheet, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import DetailHeader from '@/components/Header/DetailHeader';
 import Card from '@/components/Card';
+import ITEM_STYLE from '@/styles/flatListItem';
 import { HEIGHTS, scale } from '@/styles/dimensions';
 
 import { makeMockWebtoonList } from '@/utils/mockWebtoonList';
 import { ResponseItemData } from '@/types/api';
 
 const DetailEpisodeItem = ({ item, index }: { item: ResponseItemData; index: number }) => (
-  <View style={styles.itemContainer}>
-    <Card cardData={item} cardStyle={{ imageSize: 'tiny', direction: 'horizontal' }} episode={index} />
+  <View style={ITEM_STYLE.DETAIL.LAYOUT_STYLE}>
+    <Card cardData={item} cardStyle={ITEM_STYLE.DETAIL.CARD_STYLE} episode={index} />
   </View>
 );
 
@@ -60,13 +61,10 @@ const styles = StyleSheet.create({
     flex: 1,
     position: 'relative',
   },
-  FlatListContainer: { backgroundColor: '#fff' },
-  itemContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    margin: scale(8),
-    justifyContent: 'space-between',
-    alignItems: 'center',
+  FlatListContainer: {
+    backgroundColor: '#fff',
+    paddingHorizontal: scale(8),
+    paddingTop: scale(8),
   },
   arrow: {
     position: 'absolute',

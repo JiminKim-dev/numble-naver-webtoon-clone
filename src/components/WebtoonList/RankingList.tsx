@@ -4,16 +4,15 @@ import { FlatList, StyleSheet, View } from 'react-native';
 import Card from '@/components/Card';
 import PressableNavigateDetail from '@/components/PressableNavigateDetail';
 import SectionLayout from '@/components/WebtoonList/SectionLayout';
-
-import { scale } from '@/styles/dimensions';
+import ITEM_STYLE from '@/styles/flatListItem';
 
 import { makeMockWebtoonList } from '@/utils/mockWebtoonList';
 import { ResponseItemData } from '@/types/api';
 
 const RankingCard = ({ item, index }: { item: ResponseItemData; index: number }) => (
   <PressableNavigateDetail item={item} from="WebtoonScreen">
-    <View style={styles.card}>
-      <Card cardData={item} cardStyle={{ imageSize: 'medium' }} ranking={index + 1} />
+    <View style={ITEM_STYLE.RANKING.LAYOUT_STYLE}>
+      <Card cardData={item} cardStyle={ITEM_STYLE.RANKING.CARD_STYLE} ranking={index + 1} />
     </View>
   </PressableNavigateDetail>
 );
@@ -39,8 +38,5 @@ export default RankingList;
 const styles = StyleSheet.create({
   flatList: {
     flexDirection: 'row',
-  },
-  card: {
-    margin: scale(6),
   },
 });

@@ -6,7 +6,9 @@ import { ResponseItemData } from '@/types/api';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Card from '@/components/Card';
 import PressableNavigateDetail from '@/components/PressableNavigateDetail';
+import ITEM_STYLE from '@/styles/flatListItem';
 import { scale } from '@/styles/dimensions';
+
 import { makeMockWebtoonList } from '@/utils/mockWebtoonList';
 
 interface NotificationState {
@@ -43,10 +45,10 @@ export default function MyScreen() {
         ({ item }: { item: ResponseItemData }) => (
           <View style={styles.itemContainer}>
             <PressableNavigateDetail item={item} from="MyScreen">
-              <Card cardData={item} cardStyle={{ imageSize: 'tiny', direction: 'horizontal' }} />
+              <Card cardData={item} cardStyle={ITEM_STYLE.MY.CARD_STYLE} />
             </PressableNavigateDetail>
 
-            <Pressable style={{}} onPress={() => onPressHandler(item)}>
+            <Pressable onPress={() => onPressHandler(item)}>
               <MaterialCommunityIcons
                 name={isAlramActive(item.mastrId) ? 'bell' : 'bell-off-outline'}
                 size={24}
@@ -62,11 +64,15 @@ export default function MyScreen() {
 }
 
 export const styles = StyleSheet.create({
-  FlatListContainer: { backgroundColor: '#fff' },
+  FlatListContainer: {
+    backgroundColor: '#fff',
+    paddingHorizontal: scale(8),
+    paddingTop: scale(8),
+  },
   itemContainer: {
     flex: 1,
     flexDirection: 'row',
-    margin: scale(8),
+    marginBottom: scale(8),
     justifyContent: 'space-between',
     alignItems: 'center',
   },
