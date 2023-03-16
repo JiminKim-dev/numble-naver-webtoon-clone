@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 
 import Card from '@/components/Card';
-import PressableNavigateDetail from '@/components/PressableNavigateDetail';
+import NavigateDetailLayout from '@/components/NavigateDetailLayout';
 import SectionLayout from '@/components/WebtoonList/SectionLayout';
 import ITEM_STYLE from '@/styles/flatListItem';
 
@@ -10,11 +10,11 @@ import { makeMockWebtoonList } from '@/utils/mockWebtoonList';
 import { ResponseItemData } from '@/types/api';
 
 const RankingCard = ({ item, index }: { item: ResponseItemData; index: number }) => (
-  <PressableNavigateDetail item={item} from="WebtoonScreen">
+  <NavigateDetailLayout item={item} from="WebtoonScreen">
     <View style={ITEM_STYLE.RANKING.LAYOUT_STYLE}>
       <Card cardData={item} cardStyle={ITEM_STYLE.RANKING.CARD_STYLE} ranking={index + 1} />
     </View>
-  </PressableNavigateDetail>
+  </NavigateDetailLayout>
 );
 
 const RankingList = () => {

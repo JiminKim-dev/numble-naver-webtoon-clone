@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { Animated, StyleSheet, View } from 'react-native';
 
 import Card from '@/components/Card';
-import PressableNavigateDetail from '@/components/PressableNavigateDetail';
+import NavigateDetailLayout from '@/components/NavigateDetailLayout';
 import RankingList from '@/components/WebtoonList/RankingList';
 import RisingList from '@/components/WebtoonList/RisingList';
 import RecommendList from '@/components/WebtoonList/RecommendList';
@@ -15,11 +15,11 @@ import { ResponseItemData } from '@/types/api';
 
 const MainWebtoonCard = ({ item }: { item: ResponseItemData }) => {
   return (
-    <PressableNavigateDetail item={item} from="WebtoonScreen">
+    <NavigateDetailLayout item={item} from="WebtoonScreen">
       <View style={ITEM_STYLE.MAIN.LAYOUT_STYLE}>
         <Card cardData={item} cardStyle={ITEM_STYLE.MAIN.CARD_STYLE} />
       </View>
-    </PressableNavigateDetail>
+    </NavigateDetailLayout>
   );
 };
 

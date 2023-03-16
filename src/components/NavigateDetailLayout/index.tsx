@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { DetailScreenProps } from '@/types/navigation';
 import { ResponseItemData } from '@/types/api';
 
-export default function PressableNavigateDetail({
+export default function NavigateDetailLayout({
   children,
   item,
   from,
@@ -14,17 +14,12 @@ export default function PressableNavigateDetail({
   from: 'WebtoonScreen' | 'MyScreen';
 }) {
   const navigation = useNavigation<DetailScreenProps['navigation']>();
-  return (
-    <Pressable
-      onPress={() =>
-        navigation.navigate('DetailScreen', {
-          id: Number(item.mastrId),
-          title: item.title,
-          from,
-        })
-      }
-    >
-      {children}
-    </Pressable>
-  );
+  const onPressHandler = () =>
+    navigation.navigate('DetailScreen', {
+      id: Number(item.mastrId),
+      title: item.title,
+      from,
+    });
+
+  return <Pressable onPress={onPressHandler}>{children}</Pressable>;
 }

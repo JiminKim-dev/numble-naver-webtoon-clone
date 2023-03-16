@@ -5,7 +5,7 @@ import { ResponseItemData } from '@/types/api';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Card from '@/components/Card';
-import PressableNavigateDetail from '@/components/PressableNavigateDetail';
+import NavigateDetailLayout from '@/components/NavigateDetailLayout';
 import ITEM_STYLE from '@/styles/flatListItem';
 import { scale } from '@/styles/dimensions';
 
@@ -44,9 +44,9 @@ export default function MyScreen() {
       renderItem={useCallback(
         ({ item }: { item: ResponseItemData }) => (
           <View style={styles.itemContainer}>
-            <PressableNavigateDetail item={item} from="MyScreen">
+            <NavigateDetailLayout item={item} from="MyScreen">
               <Card cardData={item} cardStyle={ITEM_STYLE.MY.CARD_STYLE} />
-            </PressableNavigateDetail>
+            </NavigateDetailLayout>
 
             <Pressable onPress={() => onPressHandler(item)}>
               <MaterialCommunityIcons
