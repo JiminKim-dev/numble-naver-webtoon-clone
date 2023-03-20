@@ -9,6 +9,7 @@ import WebtoonList from '@/components/WebtoonList';
 
 import { HEIGHTS, WIDTHS } from '@/styles/dimensions';
 import WEBTOON_ROUTE from '@/constants/routes';
+import SkeletonList from '@/components/WebtoonList/SkeletonList';
 
 export default function HomeScreen() {
   const [index, setIndex] = useState(0);
@@ -60,7 +61,12 @@ export default function HomeScreen() {
           </Animated.View>
         )}
         navigationState={{ index, routes }}
-        renderScene={(props) => <WebtoonList category={props.route.key} scrollY={scrollY} />}
+        renderScene={({ route }) => {
+          if (Math.abs(index - routes.indexOf(route)) > 2) {
+            return <SkeletonList />;
+          }
+          return <WebtoonList category={route.key} scrollY={scrollY} />;
+        }}
         onIndexChange={setIndex}
         initialLayout={{ width: WIDTHS.WINDOW }}
       />
