@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 
 import Card from '@/components/Card';
@@ -17,7 +17,7 @@ const RisingCard = ({ item }: { item: ResponseItemData }) => (
   </NavigateDetailLayout>
 );
 
-export default function RisingList() {
+function RisingList() {
   const RenderItem = useCallback(RisingCard, []);
 
   return (
@@ -32,6 +32,8 @@ export default function RisingList() {
     </SectionLayout>
   );
 }
+
+export default React.memo(RisingList);
 
 const styles = StyleSheet.create({
   flatList: {

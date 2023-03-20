@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { Animated, StyleSheet, View } from 'react-native';
 
 import Card from '@/components/Card';
@@ -23,7 +23,7 @@ const MainWebtoonCard = ({ item }: { item: ResponseItemData }) => {
   );
 };
 
-export default function WebtoonList({ category, scrollY }: { category: string; scrollY: Animated.Value }) {
+function WebtoonList({ category, scrollY }: { category: string; scrollY: Animated.Value }) {
   const RanderItem = useCallback(MainWebtoonCard, []);
 
   return (
@@ -47,6 +47,8 @@ export default function WebtoonList({ category, scrollY }: { category: string; s
     />
   );
 }
+
+export default React.memo(WebtoonList);
 
 const styles = StyleSheet.create({
   container: {

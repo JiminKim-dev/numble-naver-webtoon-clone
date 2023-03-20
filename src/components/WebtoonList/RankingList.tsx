@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 
 import Card from '@/components/Card';
@@ -33,7 +33,7 @@ const RankingList = () => {
   );
 };
 
-export default RankingList;
+export default React.memo(RankingList);
 
 const styles = StyleSheet.create({
   flatList: {

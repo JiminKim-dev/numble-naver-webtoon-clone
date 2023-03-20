@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 
 import Card from '@/components/Card';
@@ -21,7 +21,7 @@ const RecommendCard = (item: ResponseItemData) => {
   );
 };
 
-export default function RecommendList() {
+function RecommendList() {
   return (
     <SectionLayout title="❗️ 최신 이야기를 놓치고 계신 것 같아요!">
       <FlatList
@@ -39,6 +39,8 @@ export default function RecommendList() {
     </SectionLayout>
   );
 }
+
+export default React.memo(RecommendList);
 
 const styles = StyleSheet.create({
   flatList: {
