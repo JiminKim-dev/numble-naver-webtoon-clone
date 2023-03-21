@@ -36,11 +36,13 @@ export default function MyScreen() {
   const isAlramActive = (id: string) =>
     notificationState[findNotificationState(id)] && notificationState[findNotificationState(id)].notification;
 
+  const keyExtractor = useCallback((item: ResponseItemData) => `my-${item.mastrId.toString()}`, []);
+
   return (
     <FlatList
       contentContainerStyle={styles.FlatListContainer}
       data={makeMockWebtoonList(13)}
-      keyExtractor={(item) => `my-${item.mastrId.toString()}`}
+      keyExtractor={keyExtractor}
       renderItem={useCallback(
         ({ item }: { item: ResponseItemData }) => (
           <View style={styles.itemContainer}>

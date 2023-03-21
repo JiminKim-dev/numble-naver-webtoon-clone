@@ -1,3 +1,4 @@
+import React, { useCallback } from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 import { CARD_SIZE, HEIGHTS, scale } from '@/styles/dimensions';
 
@@ -13,19 +14,21 @@ const SkeletonCard = () => (
 
 function SkeletonList() {
   const emptyList = Array.from({ length: 9 }, (_, index) => index);
+  const renderItem = useCallback(SkeletonCard, []);
+  const keyExtractor = useCallback((item: number) => `skeleton-${item.toString()}`, []);
 
   return (
     <FlatList
       contentContainerStyle={styles.container}
       data={emptyList}
       numColumns={3}
-      keyExtractor={(item) => `skeleton-${item.toString()}`}
-      renderItem={SkeletonCard}
+      keyExtractor={keyExtractor}
+      renderItem={renderItem}
     />
   );
 }
 
-export default SkeletonList;
+export default React.memo(SkeletonList);
 
 const styles = StyleSheet.create({
   container: {

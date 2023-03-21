@@ -23,8 +23,18 @@ const MainWebtoonCard = ({ item }: { item: ResponseItemData }) => {
   );
 };
 
+const WebtoonListFooterComponent = () => (
+  <>
+    <RisingList />
+    <RankingList />
+    <RecommendList />
+  </>
+);
+
 function WebtoonList({ category, scrollY }: { category: string; scrollY: Animated.Value }) {
-  const RanderItem = useCallback(MainWebtoonCard, []);
+  const renderItem = useCallback(MainWebtoonCard, []);
+  const keyExtractor = useCallback((item: ResponseItemData) => `${category}-main-${item.mastrId.toString()}`, []);
+  const randerListFooterComponent = useCallback(WebtoonListFooterComponent, []);
 
   return (
     <Animated.FlatList
@@ -35,15 +45,10 @@ function WebtoonList({ category, scrollY }: { category: string; scrollY: Animate
       onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: true })}
       data={makeMockWebtoonList(11)}
       numColumns={3}
-      keyExtractor={(item) => `${category}-main-${item.mastrId.toString()}`}
-      renderItem={RanderItem}
-      ListFooterComponent={
-        <>
-          <RisingList />
-          <RankingList />
-          <RecommendList />
-        </>
-      }
+      keyExtractor={keyExtractor}
+      renderItem={renderItem}
+      maxToRenderPerBatch={9}
+      ListFooterComponent={randerListFooterComponent}
     />
   );
 }

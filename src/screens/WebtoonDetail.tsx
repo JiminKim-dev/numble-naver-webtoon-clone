@@ -28,12 +28,13 @@ export default function DetailScreen() {
 
   const DATA = makeMockWebtoonList(20);
 
-  const RenderItem = useCallback(
+  const renderItem = useCallback(
     ({ item, index }: { item: ResponseItemData; index: number }) => (
       <DetailEpisodeItem item={item} index={DATA.length - index} />
     ),
     [],
   );
+  const keyExtractor = useCallback((item: ResponseItemData) => `detail-${item.mastrId.toString()}`, []);
 
   return (
     <View style={styles.container}>
@@ -44,8 +45,8 @@ export default function DetailScreen() {
         onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: true })}
         contentContainerStyle={styles.FlatListContainer}
         data={DATA.reverse()}
-        keyExtractor={(item) => `detail-${item.mastrId.toString()}`}
-        renderItem={RenderItem}
+        keyExtractor={keyExtractor}
+        renderItem={renderItem}
       />
       <Animated.View style={[styles.arrow, { opacity: arrowButtonActive }]}>
         <Pressable onPress={() => flatListRef.current?.scrollToOffset({ animated: true, offset: 0 })}>

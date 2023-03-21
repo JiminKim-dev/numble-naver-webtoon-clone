@@ -18,7 +18,8 @@ const RankingCard = ({ item, index }: { item: ResponseItemData; index: number })
 );
 
 const RankingList = () => {
-  const RenderItem = useCallback(RankingCard, []);
+  const renderItem = useCallback(RankingCard, []);
+  const keyExtractor = useCallback((item: ResponseItemData) => `section-ranking-${item.mastrId.toString()}`, []);
 
   return (
     <SectionLayout title="🫶 여성 독자님들이 이번 주 가장 많이 본 New 추천완결!">
@@ -26,8 +27,8 @@ const RankingList = () => {
         style={styles.flatList}
         data={makeMockWebtoonList(9)}
         horizontal
-        keyExtractor={(item) => `section-ranking-${item.mastrId.toString()}`}
-        renderItem={RenderItem}
+        keyExtractor={keyExtractor}
+        renderItem={renderItem}
       />
     </SectionLayout>
   );

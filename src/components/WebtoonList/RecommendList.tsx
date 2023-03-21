@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-prop-types */
 import React, { useCallback } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 
@@ -22,19 +23,20 @@ const RecommendCard = (item: ResponseItemData) => {
 };
 
 function RecommendList() {
+  const renderItem = useCallback(
+    ({ item }: { item: ResponseItemData[] }) => <View>{item.map(RecommendCard)}</View>,
+    [],
+  );
+  const keyExtractor = useCallback((item: ResponseItemData[]) => `section-new-${item[0].mastrId.toString()}`, []);
+
   return (
     <SectionLayout title="❗️ 최신 이야기를 놓치고 계신 것 같아요!">
       <FlatList
         style={styles.flatList}
         data={makeMockWebtoonGridList(makeMockWebtoonList(17), 3)}
         horizontal
-        keyExtractor={(item) => `section-new-${item[0].mastrId.toString()}`}
-        renderItem={useCallback(
-          ({ item: items }) => (
-            <View>{items.map(RecommendCard)}</View>
-          ),
-          [],
-        )}
+        keyExtractor={keyExtractor}
+        renderItem={renderItem}
       />
     </SectionLayout>
   );

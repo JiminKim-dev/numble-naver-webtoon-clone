@@ -18,7 +18,8 @@ const RisingCard = ({ item }: { item: ResponseItemData }) => (
 );
 
 function RisingList() {
-  const RenderItem = useCallback(RisingCard, []);
+  const renderItem = useCallback(RisingCard, []);
+  const keyExtractor = useCallback((item: ResponseItemData) => `section-rising-${item.mastrId.toString()}`, []);
 
   return (
     <SectionLayout title="📈 지금 인기 급상승 웹툰!">
@@ -26,8 +27,8 @@ function RisingList() {
         style={styles.flatList}
         data={makeMockWebtoonList(12)}
         horizontal
-        keyExtractor={(item) => `section-rising-${item.mastrId.toString()}`}
-        renderItem={RenderItem}
+        keyExtractor={keyExtractor}
+        renderItem={renderItem}
       />
     </SectionLayout>
   );
