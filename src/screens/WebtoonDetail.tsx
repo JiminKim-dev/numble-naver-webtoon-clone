@@ -47,6 +47,7 @@ export default function DetailScreen() {
         data={DATA.reverse()}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
+        initialNumToRender={10}
       />
       <Animated.View style={[styles.arrow, { opacity: arrowButtonActive }]}>
         <Pressable onPress={() => flatListRef.current?.scrollToOffset({ animated: true, offset: 0 })}>

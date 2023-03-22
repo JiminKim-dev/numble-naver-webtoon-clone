@@ -37,6 +37,7 @@ function RecommendList() {
         horizontal
         keyExtractor={keyExtractor}
         renderItem={renderItem}
+        initialNumToRender={6}
       />
     </SectionLayout>
   );

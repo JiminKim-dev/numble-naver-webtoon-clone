@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Animated, StyleSheet, View } from 'react-native';
 
 import Card from '@/components/Card';
@@ -13,15 +13,13 @@ import { HEIGHTS, scale } from '@/styles/dimensions';
 import { makeMockWebtoonList } from '@/utils/mockWebtoonList';
 import { ResponseItemData } from '@/types/api';
 
-const MainWebtoonCard = ({ item }: { item: ResponseItemData }) => {
-  return (
-    <NavigateDetailLayout item={item} from="WebtoonScreen">
-      <View style={ITEM_STYLE.MAIN.LAYOUT_STYLE}>
-        <Card cardData={item} cardStyle={ITEM_STYLE.MAIN.CARD_STYLE} />
-      </View>
-    </NavigateDetailLayout>
-  );
-};
+const MainWebtoonCard = ({ item }: { item: ResponseItemData }) => (
+  <NavigateDetailLayout item={item} from="WebtoonScreen">
+    <View style={ITEM_STYLE.MAIN.LAYOUT_STYLE}>
+      <Card cardData={item} cardStyle={ITEM_STYLE.MAIN.CARD_STYLE} />
+    </View>
+  </NavigateDetailLayout>
+);
 
 const WebtoonListFooterComponent = () => (
   <>
@@ -47,8 +45,8 @@ function WebtoonList({ category, scrollY }: { category: string; scrollY: Animate
       numColumns={3}
       keyExtractor={keyExtractor}
       renderItem={renderItem}
-      maxToRenderPerBatch={9}
       ListFooterComponent={randerListFooterComponent}
+      initialNumToRender={9}
     />
   );
 }

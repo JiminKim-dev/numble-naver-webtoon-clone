@@ -43,6 +43,7 @@ export default function MyScreen() {
       contentContainerStyle={styles.FlatListContainer}
       data={makeMockWebtoonList(13)}
       keyExtractor={keyExtractor}
+      initialNumToRender={9}
       renderItem={useCallback(
         ({ item }: { item: ResponseItemData }) => (
           <View style={styles.itemContainer}>

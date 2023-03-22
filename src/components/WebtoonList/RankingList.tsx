@@ -29,6 +29,7 @@ const RankingList = () => {
         horizontal
         keyExtractor={keyExtractor}
         renderItem={renderItem}
+        initialNumToRender={4}
       />
     </SectionLayout>
   );
