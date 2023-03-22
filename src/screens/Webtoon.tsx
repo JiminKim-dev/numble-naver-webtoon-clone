@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useEffect, useRef, useState } from 'react';
-import { View, StyleSheet, Animated, LayoutRectangle, LayoutChangeEvent, Text } from 'react-native';
+import { View, StyleSheet, Animated, Text } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
 
 import Header from '@/components/Header/WebtoonHeader';
@@ -8,33 +8,12 @@ import MainBanner from '@/components/Banner/MainBanner';
 import WebtoonList from '@/components/WebtoonList';
 
 import { HEIGHTS, WIDTHS } from '@/styles/dimensions';
-
-import useOnLayout from '@/hooks/useLayout';
-
-interface RouteType {
-  id: number;
-  key: 'new' | 'daily' | 'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun' | 'end';
-  title: string;
-}
-
-const route: RouteType[] = [
-  { id: 0, key: 'new', title: '신작' },
-  { id: 1, key: 'daily', title: '매일' },
-  { id: 2, key: 'mon', title: '월' },
-  { id: 3, key: 'tue', title: '화' },
-  { id: 4, key: 'wed', title: '수' },
-  { id: 5, key: 'thu', title: '목' },
-  { id: 6, key: 'fri', title: '금' },
-  { id: 7, key: 'sat', title: '토' },
-  { id: 8, key: 'sun', title: '일' },
-  { id: 9, key: 'end', title: '완결' },
-];
+import WEBTOON_ROUTE from '@/constants/routes';
+import SkeletonList from '@/components/WebtoonList/SkeletonList';
 
 export default function HomeScreen() {
   const [index, setIndex] = useState(0);
-  const [routes] = useState(route);
-
-  const [layoutSize, onLayout] = useOnLayout();
+  const [routes] = useState(WEBTOON_ROUTE);
 
   const scrollY = useRef(new Animated.Value(0)).current;
   const bannerTranslateY = scrollY.interpolate({
@@ -55,10 +34,10 @@ export default function HomeScreen() {
     extrapolate: 'clamp',
   });
 
-  // useEffect(() => {
-  //   scrollY.setValue(0);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [index]);
+  useEffect(() => {
+    scrollY.setValue(0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [index]);
 
   return (
     <View style={styles.container}>
@@ -70,10 +49,7 @@ export default function HomeScreen() {
 
       <TabView
         renderTabBar={(props) => (
-          <Animated.View
-            style={[styles.TabBarView, { transform: [{ translateY: tabBarTranslateY }] }]}
-            onLayout={onLayout as (e: LayoutChangeEvent) => void}
-          >
+          <Animated.View style={[styles.TabBarView, { transform: [{ translateY: tabBarTranslateY }] }]}>
             <TabBar
               {...props}
               style={styles.TabBar}
@@ -85,9 +61,12 @@ export default function HomeScreen() {
           </Animated.View>
         )}
         navigationState={{ index, routes }}
-        renderScene={(props) => (
-          <WebtoonList category={props.route.key} scrollY={scrollY} tabBarLayoutSize={layoutSize as LayoutRectangle} />
-        )}
+        renderScene={({ route }) => {
+          if (Math.abs(index - routes.indexOf(route)) > 2) {
+            return <SkeletonList />;
+          }
+          return <WebtoonList category={route.key} scrollY={scrollY} />;
+        }}
         onIndexChange={setIndex}
         initialLayout={{ width: WIDTHS.WINDOW }}
       />
@@ -118,6 +97,8 @@ const styles = StyleSheet.create({
   TabBar: {
     zIndex: 2,
     backgroundColor: '#fff',
+    justifyContent: 'center',
+    height: HEIGHTS.TAB_BAR,
   },
   TabBarView: {
     top: 0,

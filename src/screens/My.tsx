@@ -1,11 +1,14 @@
-import { useState } from 'react';
+/* eslint-disable react/no-unused-prop-types */
+import { useCallback, useState } from 'react';
 import { FlatList, Pressable, StyleSheet, View } from 'react-native';
 import { ResponseItemData } from '@/types/api';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Card from '@/components/Card';
-import PressableNavigateDetail from '@/components/PressableNavigateDetail';
+import NavigateDetailLayout from '@/components/Layout/NavigateDetailLayout';
+import ITEM_STYLE from '@/styles/flatListItem';
 import { scale } from '@/styles/dimensions';
+
 import { makeMockWebtoonList } from '@/utils/mockWebtoonList';
 
 interface NotificationState {
@@ -33,36 +36,46 @@ export default function MyScreen() {
   const isAlramActive = (id: string) =>
     notificationState[findNotificationState(id)] && notificationState[findNotificationState(id)].notification;
 
+  const keyExtractor = useCallback((item: ResponseItemData) => `my-${item.mastrId.toString()}`, []);
+
   return (
     <FlatList
       contentContainerStyle={styles.FlatListContainer}
       data={makeMockWebtoonList(13)}
-      keyExtractor={(item) => `my-${item.mastrId.toString()}`}
-      renderItem={({ item }) => (
-        <View style={styles.itemContainer}>
-          <PressableNavigateDetail item={item} from="MyScreen">
-            <Card cardData={item} cardStyle={{ imageSize: 'tiny', direction: 'horizontal' }} />
-          </PressableNavigateDetail>
+      keyExtractor={keyExtractor}
+      initialNumToRender={9}
+      renderItem={useCallback(
+        ({ item }: { item: ResponseItemData }) => (
+          <View style={styles.itemContainer}>
+            <NavigateDetailLayout item={item} from="MyScreen">
+              <Card cardData={item} cardStyle={ITEM_STYLE.MY.CARD_STYLE} />
+            </NavigateDetailLayout>
 
-          <Pressable style={{}} onPress={() => onPressHandler(item)}>
-            <MaterialCommunityIcons
-              name={isAlramActive(item.mastrId) ? 'bell' : 'bell-off-outline'}
-              size={24}
-              color={isAlramActive(item.mastrId) ? 'green' : 'black'}
-            />
-          </Pressable>
-        </View>
+            <Pressable onPress={() => onPressHandler(item)}>
+              <MaterialCommunityIcons
+                name={isAlramActive(item.mastrId) ? 'bell' : 'bell-off-outline'}
+                size={24}
+                color={isAlramActive(item.mastrId) ? 'green' : 'black'}
+              />
+            </Pressable>
+          </View>
+        ),
+        [],
       )}
     />
   );
 }
 
 export const styles = StyleSheet.create({
-  FlatListContainer: { backgroundColor: '#fff' },
+  FlatListContainer: {
+    backgroundColor: '#fff',
+    paddingHorizontal: scale(8),
+    paddingTop: scale(8),
+  },
   itemContainer: {
     flex: 1,
     flexDirection: 'row',
-    margin: scale(8),
+    marginBottom: scale(8),
     justifyContent: 'space-between',
     alignItems: 'center',
   },

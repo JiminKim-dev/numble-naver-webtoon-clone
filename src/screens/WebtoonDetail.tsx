@@ -1,12 +1,21 @@
-import { useRef } from 'react';
+/* eslint-disable react/no-unused-prop-types */
+import { useCallback, useRef } from 'react';
 import { Animated, FlatList, Pressable, StyleSheet, View } from 'react-native';
 
 import { Feather } from '@expo/vector-icons';
 import DetailHeader from '@/components/Header/DetailHeader';
 import Card from '@/components/Card';
+import ITEM_STYLE from '@/styles/flatListItem';
 import { HEIGHTS, scale } from '@/styles/dimensions';
 
 import { makeMockWebtoonList } from '@/utils/mockWebtoonList';
+import { ResponseItemData } from '@/types/api';
+
+const DetailEpisodeItem = ({ item, index }: { item: ResponseItemData; index: number }) => (
+  <View style={ITEM_STYLE.DETAIL.LAYOUT_STYLE}>
+    <Card cardData={item} cardStyle={ITEM_STYLE.DETAIL.CARD_STYLE} episode={index} />
+  </View>
+);
 
 export default function DetailScreen() {
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -17,6 +26,16 @@ export default function DetailScreen() {
     outputRange: [0, 0.5],
   });
 
+  const DATA = makeMockWebtoonList(20);
+
+  const renderItem = useCallback(
+    ({ item, index }: { item: ResponseItemData; index: number }) => (
+      <DetailEpisodeItem item={item} index={DATA.length - index} />
+    ),
+    [],
+  );
+  const keyExtractor = useCallback((item: ResponseItemData) => `detail-${item.mastrId.toString()}`, []);
+
   return (
     <View style={styles.container}>
       <DetailHeader />
@@ -25,17 +44,10 @@ export default function DetailScreen() {
         ref={flatListRef}
         onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: true })}
         contentContainerStyle={styles.FlatListContainer}
-        data={makeMockWebtoonList(20).reverse()}
-        keyExtractor={(item) => `detail-${item.mastrId.toString()}`}
-        renderItem={({ item, index }) => (
-          <View style={styles.itemContainer}>
-            <Card
-              cardData={item}
-              cardStyle={{ imageSize: 'tiny', direction: 'horizontal' }}
-              episode={makeMockWebtoonList(20).length - index}
-            />
-          </View>
-        )}
+        data={DATA.reverse()}
+        keyExtractor={keyExtractor}
+        renderItem={renderItem}
+        initialNumToRender={10}
       />
       <Animated.View style={[styles.arrow, { opacity: arrowButtonActive }]}>
         <Pressable onPress={() => flatListRef.current?.scrollToOffset({ animated: true, offset: 0 })}>
@@ -51,13 +63,10 @@ const styles = StyleSheet.create({
     flex: 1,
     position: 'relative',
   },
-  FlatListContainer: { backgroundColor: '#fff' },
-  itemContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    margin: scale(8),
-    justifyContent: 'space-between',
-    alignItems: 'center',
+  FlatListContainer: {
+    backgroundColor: '#fff',
+    paddingHorizontal: scale(8),
+    paddingTop: scale(8),
   },
   arrow: {
     position: 'absolute',
